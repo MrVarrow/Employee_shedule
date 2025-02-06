@@ -1,8 +1,10 @@
 import React from "react";
-import { Box, Button, Typography, Container } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
-import animationData from "../assets/employee-schedule-animation.json"; // Replace with your Lottie JSON file
+import animationData from "../assets/employee-schedule-animation.json";
+import { Link } from 'react-router-dom';
+
 
 const Home = () => {
   return (
@@ -34,14 +36,18 @@ const Home = () => {
 
       <Box sx={{ mt: 4, display: "flex", gap: 2 }}>
         <motion.div whileHover={{ scale: 1.1 }}>
-          <Button variant="contained" color="primary" size="large">
-            Get Started →
-          </Button>
+            <Link to={"/signup"} style={{ textDecoration: 'none' }}>
+              <Button variant="contained" color="primary" size="large" to="/signup">
+                Get Started →
+              </Button>
+            </Link>
         </motion.div>
         <motion.div whileHover={{ scale: 1.1 }}>
-          <Button variant="outlined" color="inherit" size="large">
-            Learn More
-          </Button>
+            <Link to="/about" style={{ textDecoration: 'none' }}>
+              <Button variant="outlined" color="inherit" size="large">
+                Learn More
+              </Button>
+            </Link>
         </motion.div>
       </Box>
     </Box>
