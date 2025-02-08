@@ -1,8 +1,9 @@
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import viewsets, permissions
 from .serializers import *
-from .models import Project
+from .models import CreateUser
 from rest_framework.response import Response
 
 
@@ -11,10 +12,10 @@ from rest_framework.response import Response
 def home(request):
     return HttpResponse("This is the home page")
 
-class ProjectViewSet(viewsets.ViewSet):
+class CreateUserViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
-    queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
+    queryset = CreateUser.objects.all()
+    serializer_class = CreateUserSerializer
 
     def list(self, request):
         queryset = self.queryset
@@ -24,7 +25,9 @@ class ProjectViewSet(viewsets.ViewSet):
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            validated_data = serializer.validated_data
+            validated_data['password'] = make_password(validated_data['password'])
+            serializer.save(**validated_data)
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=400)

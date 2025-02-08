@@ -1,14 +1,15 @@
 from django.db import models
 
 # Create your models here.
-class Project(models.Model):
-    name = models.CharField(unique=True, max_length=100)
-    start_date = models.DateField()
-    end_date = models.DateField()
-    comments = models.CharField(blank=True, max_length=100, null=True)
-    status = models.CharField(max_length=100)
+class CreateUser(models.Model):
+    full_name = models.CharField(max_length=100)
+    username = models.CharField(max_length=100, unique=True)
+    password = models.CharField(max_length=100)
+    email = models.CharField(unique=True, max_length=100)
+    birthday = models.DateField()
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.username

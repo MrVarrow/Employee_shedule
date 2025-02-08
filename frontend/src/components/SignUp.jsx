@@ -4,13 +4,37 @@ import {Container, Box, Paper, Typography, Avatar, Button} from "@mui/material";
 import MyDatePickerField from "./forms/MyDatePickerField.jsx";
 import MyTextField from "./forms/MyTextField.jsx";
 import LockOutlinedIcon  from '@mui/icons-material/LockOutlined';
+import AxiosInstance from "./Axios.jsx";
+import Dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-    const {handleSubmit, reset, setValue, control, watch} = useForm()
-    const password = watch("user_password");
+    const navigate = useNavigate()
+    const defaultValues = {
+        full_name: "",
+        username: "",
+        email: "",
+        password: "",
+        confirm_password: "",
+
+    }
+    const {handleSubmit, reset, setValue, control, watch} = useForm({defaultValues: defaultValues})
+    const password = watch("password");
 
   const submission = (data) => {
-    console.log("Signup Data:", data);
+      const Birthday = Dayjs(data.birthday["$d"]).format("YYYY-MM-DD")
+    AxiosInstance.post(
+        `create-user/`,{
+            full_name: data.full_name,
+            username: data.username,
+            email: data.email,
+            password: data.password,
+            birthday: Birthday,
+        })
+        .then((res) =>{
+            navigate(`/signin`)
+        })
+
   };
 
   return (
@@ -62,7 +86,7 @@ const Signup = () => {
 
             <MyTextField
                 label="E-mail"
-                name="user_email"
+                name="email"
                 control={control}
                 rules={{ required: "E-mail is required" }}
                 placeholder="Enter your email..."
@@ -71,7 +95,7 @@ const Signup = () => {
 
             <MyTextField
                 label="Password"
-                name="user_password"
+                name="password"
                 control={control}
                 rules={{ required: "Password is required" }}
                 placeholder="Enter your password..."
@@ -94,7 +118,7 @@ const Signup = () => {
 
             <MyDatePickerField
                 label="Birth date"
-                name="birth_date"
+                name="birthday"
                 control={control}
                 width='100%'
                 rules={{ required: "Birth date is required" }}
