@@ -8,6 +8,7 @@ import Contact from "./components/Contact.jsx";
 import SignIn from "./components/SignIn.jsx";
 import SignUp from "./components/SignUp.jsx";
 import FrequentlyAskedQuestions from "./components/FAQs.jsx";
+import LoggedUser from "./components/LoggedUser.jsx";
 
 function App() {
     const myWidth = 220
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/contact" element={<Contact/>}/>
                     <Route path="/signin" element={<SignIn/>}/>
                     <Route path="/signup" element={<SignUp/>}/>
+                    <Route path="/logged-user" element={<LoggedUser/>}/>
                  </Routes>
 
             }

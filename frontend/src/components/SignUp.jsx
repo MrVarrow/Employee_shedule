@@ -24,7 +24,7 @@ const Signup = () => {
   const submission = (data) => {
       const Birthday = Dayjs(data.birthday["$d"]).format("YYYY-MM-DD")
     AxiosInstance.post(
-        `create-user/`,{
+        `accounts/register/`,{
             full_name: data.full_name,
             username: data.username,
             email: data.email,

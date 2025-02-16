@@ -3,12 +3,27 @@ import {useForm} from "react-hook-form";
 import {Avatar, Typography, Box, Paper, Container, Button} from "@mui/material";
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import MyTextField from "./forms/MyTextField.jsx";
+import AxiosInstance from "./Axios.jsx";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-    const {handleSubmit, reset, setValue, control, watch} = useForm()
+    const navigate = useNavigate()
+    const defaultValues = {
+        username: "",
+        password: "",
+
+    }
+    const {handleSubmit, reset, setValue, control, watch} = useForm({defaultValues: defaultValues})
 
     const submission = (data) => {
-        console.log("Signup Data:", data);
+        AxiosInstance.post(
+            `accounts/login/`, {
+                username: data.username,
+                password: data.password,
+            })
+            .then((res) =>{
+                navigate(`/logged-user`)
+            })
     };
     return (
         <form onSubmit={handleSubmit(submission)}>
