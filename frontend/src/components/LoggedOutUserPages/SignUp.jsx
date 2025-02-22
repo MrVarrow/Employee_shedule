@@ -1,10 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import {Container, Box, Paper, Typography, Avatar, Button} from "@mui/material";
-import MyDatePickerField from "./forms/MyDatePickerField.jsx";
-import MyTextField from "./forms/MyTextField.jsx";
+import MyDatePickerField from "../Forms/MyDatePickerField.jsx";
+import MyTextField from "../Forms/MyTextField.jsx";
 import LockOutlinedIcon  from '@mui/icons-material/LockOutlined';
-import AxiosInstance from "./Axios.jsx";
+import AxiosInstance from "../Configuration/Axios.jsx";
 import Dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 

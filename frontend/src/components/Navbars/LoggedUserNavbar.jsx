@@ -11,19 +11,30 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
-import InfoIcon from '@mui/icons-material/Info';
 import Button from "@mui/material/Button";
-import HelpIcon from '@mui/icons-material/Help';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import PersonPinIcon from '@mui/icons-material/PersonPin';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import LoginIcon from '@mui/icons-material/Login';
+import FastForwardIcon from '@mui/icons-material/FastForward';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import SupportIcon from '@mui/icons-material/Support';
+import SettingsIcon from '@mui/icons-material/Settings';
+
 
 export default function Navbar(props) {
-    const {drawerWidth, content} = props
+    const {drawerWidth, content, setIsAuthenticated} = props
     const location = useLocation()
     const path = location.pathname
+    const username = localStorage.getItem('username');
+
+    const handleLogout = () => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('username');
+        setIsAuthenticated(false);
+        sessionStorage.clear();
+        window.location.href = '/';
+    };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -40,18 +51,14 @@ export default function Navbar(props) {
       >
         <Toolbar>
           <Typography variant="h6" noWrap>
-            Employee Schedule
+            Employee Schedule {username ? `- ${username}` : ""}
           </Typography>
         </Toolbar>
         <Toolbar>
 
           <Button sx={{backgroundColor: 'white', color: 'black', display: 'flex', alignItems: 'center', marginLeft: 2}}
-                  color="inherit" component={Link} to="/signin" startIcon={<LoginIcon/>}>
-            Sign In
-          </Button>
-          <Button sx={{backgroundColor: 'white', color: 'black', display: 'flex', alignItems: 'center', marginLeft: 2}}
-                  color="inherit" component={Link} to="/signup" startIcon={<AddCircleIcon/>}>
-            Sign Up
+                  color="inherit" onClick={handleLogout} startIcon={<LoginIcon/>}>
+            Logout
           </Button>
         </Toolbar>
       </AppBar>
@@ -68,47 +75,56 @@ export default function Navbar(props) {
           <List>
 
               <ListItem disablePadding>
-                <ListItemButton component={Link} to="" selected={"" === path}>
+                <ListItemButton component={Link} to="/employee-manager" selected={"/employee-manager" === path}>
                   <ListItemIcon>
-                        <HomeIcon/>
+                        <AccountCircleIcon/>
                   </ListItemIcon>
-                  <ListItemText primary={"Home"} />
+                  <ListItemText primary={"Employee manager"} />
                 </ListItemButton>
               </ListItem>
 
               <ListItem disablePadding>
-                <ListItemButton component={Link} to="/about" selected={"/about" === path}>
+                <ListItemButton component={Link} to="/workplace-manager" selected={"/workplace-manager" === path}>
                   <ListItemIcon>
-                        <InfoIcon/>
+                        <ApartmentIcon/>
                   </ListItemIcon>
-                  <ListItemText primary={"About"} />
+                  <ListItemText primary={"Workplace manager"} />
                 </ListItemButton>
               </ListItem>
 
               <ListItem disablePadding>
-                <ListItemButton component={Link} to="/how-to-use" selected={"/how-to-use" === path}>
+                <ListItemButton component={Link} to="/schedule-manager" selected={"/schedule-manager" === path}>
                   <ListItemIcon>
-                        <HelpIcon/>
+                        <EventNoteIcon/>
                   </ListItemIcon>
-                  <ListItemText primary={"How to use"} />
+                  <ListItemText primary={"Schedule manager"} />
                 </ListItemButton>
               </ListItem>
 
               <ListItem disablePadding>
-                <ListItemButton component={Link} to="/faq" selected={"/faq" === path}>
+                <ListItemButton component={Link} to="/active-schedule-manager" selected={"/active-schedule-manager" === path}>
                   <ListItemIcon>
-                        <QuestionAnswerIcon/>
+                        <FastForwardIcon/>
                   </ListItemIcon>
-                  <ListItemText primary={"FAQ"} />
+                  <ListItemText primary={"Active schedule manager"} />
                 </ListItemButton>
               </ListItem>
 
               <ListItem disablePadding>
-                <ListItemButton component={Link} to="/contact" selected={"/contact" === path}>
+                <ListItemButton component={Link} to="/support" selected={"/support" === path}>
                   <ListItemIcon>
-                        <PersonPinIcon/>
+                        <SupportIcon/>
                   </ListItemIcon>
-                  <ListItemText primary={"Contact"} />
+                  <ListItemText primary={"Support"} />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="/settings" selected={"/settings" === path}>
+                  <ListItemIcon>
+                        <SettingsIcon/>
+                  </ListItemIcon>
+                  <ListItemText primary={"Settings"} />
                 </ListItemButton>
               </ListItem>
 

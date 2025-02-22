@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
-import animationData from "../assets/employee-schedule-animation.json";
+import animationData from "../../assets/employee-schedule-animation.json";
 import { Link } from 'react-router-dom';
 
 

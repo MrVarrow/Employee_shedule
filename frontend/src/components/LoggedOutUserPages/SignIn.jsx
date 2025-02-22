@@ -2,11 +2,11 @@ import React from 'react';
 import {useForm} from "react-hook-form";
 import {Avatar, Typography, Box, Paper, Container, Button} from "@mui/material";
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
-import MyTextField from "./forms/MyTextField.jsx";
-import AxiosInstance from "./Axios.jsx";
+import MyTextField from "../Forms/MyTextField.jsx";
+import AxiosInstance from "../Configuration/Axios.jsx";
 import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const SignIn = ({setIsAuthenticated}) => {
     const navigate = useNavigate()
     const defaultValues = {
         username: "",
@@ -24,7 +24,9 @@ const SignIn = () => {
             .then((res) =>{
                 localStorage.setItem('access_token', res.data.access_token);
                 localStorage.setItem('refresh_token', res.data.refresh_token);
+                localStorage.setItem('username', res.data.username);
 
+                setIsAuthenticated(true);
                 navigate(`/logged-user`)
             })
     };

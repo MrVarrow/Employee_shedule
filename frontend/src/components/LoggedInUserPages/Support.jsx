@@ -1,11 +1,11 @@
 import React from 'react';
 
-const LoggedUser = () => {
+const Support = () => {
     return (
         <div>
-            Logged User
+            Support
         </div>
     );
 };
 
-export default LoggedUser;
+export default Support;
