@@ -1,49 +1,28 @@
 import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
+import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import {Controller} from "react-hook-form";
-import TextField from "@mui/material/TextField";
 
-export default function MySelectField(props) {
-  const [age, setAge] = React.useState('');
-  const {label, name, control, width} = props
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
+const MySelectField = ({ label, value, onChange, options, width }) => {
   return (
+    <TextField
+          id="outlined-select-currency"
+          select
+          label={label}
+          value={value}
+          onChange={onChange}
+          fullWidth
+          margin="normal"
+          sx={{ width: width || '100%' // Ensure width is applied correctly
 
-      <FormControl variant="standard" sx={{width:{width}}}>
-        <InputLabel id="demo-simple-select-filled-label">{label}</InputLabel>
-        <Controller
-            name = {name}
-            control={control}
-            render= {({
-                field:{onChange, value},
-                fieldState:{error},
-                formState,
-                      }) => (
-                    <Select
-                        labelId="demo-simple-select-filled-label"
-                        id="demo-simple-select-filled"
-                        onChange={onChange}
-                        value={value}
-
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={"Open"}>Open</MenuItem>
-                <MenuItem value={"In progress"}>In progress</MenuItem>
-                <MenuItem value={"Completed"}>Completed</MenuItem>
-                    </Select>
-                )
-                }
-        />
-
-      </FormControl>
-
+      }}
+        >
+          {options.map((option) => (
+            <MenuItem key={option} value={option} >
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
   );
-}
+};
+
+export default MySelectField;

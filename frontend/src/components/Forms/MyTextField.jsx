@@ -12,7 +12,6 @@ export default function MyTextField(props) {
             render= {({
                 field:{onChange, value},
                 fieldState:{error},
-                formState,
 
                 }) => (
 

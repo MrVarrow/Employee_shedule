@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Card, CardContent, CardHeader, Menu, MenuItem, IconButton, TextField, Box, List, ListItem, ListItemText } from "@mui/material";
 import { MoreVert, Add } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import MyNumberField from "../Forms/MyNumberField.jsx";
+import MySelectField from "../Forms/MySelectField.jsx";
 
 const EmployeeManagement = () => {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [currentEmployeeId, setCurrentEmployeeId] = useState(null);
+  const [daysInNextMonth, setDaysInNextMonth] = useState([]);
+
+  useEffect(() => {
+    const getNextMonthDays = () => {
+      const now = new Date();
+      const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+      const days = new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 0).getDate();
+
+      return Array.from({ length: days }, (_, i) => (i + 1).toString());
+    };
+    setDaysInNextMonth(getNextMonthDays());
+  }, []);
 
   const handleDelete = (id) => {
     setEmployees(employees.filter(emp => emp.id !== id));
@@ -123,43 +137,44 @@ const EmployeeManagement = () => {
           <CardContent>
             {selectedEmployee ? (
               <Box>
-                <TextField
+                <MyNumberField
                   label="Number of hours per month"
-                  fullWidth
+                  width = '100%'
                   value={selectedEmployee.preferences.hoursPerMonth}
                   onChange={(e) => handlePreferenceChange('hoursPerMonth', e.target.value)}
                   margin="normal"
                 />
-                <TextField
+                <MyNumberField
                   label="Number of hours per day"
-                  fullWidth
+                  width = '100%'
                   value={selectedEmployee.preferences.hoursPerDay}
                   onChange={(e) => handlePreferenceChange('hoursPerDay', e.target.value)}
                   margin="normal"
                 />
                 <TextField
-                  label="Free days (e.g., 5th, 2nd)"
+                  label="Free days (e.g., 5,2,...,10)"
                   fullWidth
                   value={selectedEmployee.preferences.freeDays}
                   onChange={(e) => handlePreferenceChange('freeDays', e.target.value)}
                   margin="normal"
                 />
-                <TextField
+                <MySelectField
                   label="Shift preference (morning, evening, night, none)"
-                  fullWidth
+                  width='100%'
+                  options={['morning', 'evening', 'night', 'none']}
                   value={selectedEmployee.preferences.shiftPreference}
                   onChange={(e) => handlePreferenceChange('shiftPreference', e.target.value)}
                   margin="normal"
                 />
                 <TextField
-                  label="Special shift preferences (e.g., 2nd - morning)"
+                  label="Special shift preferences (e.g., 2 - morning)"
                   fullWidth
                   value={selectedEmployee.preferences.specialShiftPreferences}
                   onChange={(e) => handlePreferenceChange('specialShiftPreferences', e.target.value)}
                   margin="normal"
                 />
                 <TextField
-                  label="Special hours preferences (e.g., 3rd - 8am to 11am)"
+                  label="Special hours preferences (e.g., 3 - 8 to 11)"
                   fullWidth
                   value={selectedEmployee.preferences.specialHoursPreferences}
                   onChange={(e) => handlePreferenceChange('specialHoursPreferences', e.target.value)}
