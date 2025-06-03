@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'accounts',
     'employee_manager',
+    'workplace_manager',
+    'schedule_manager',
 ]
 
 REST_FRAMEWORK = {
